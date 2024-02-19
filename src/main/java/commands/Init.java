@@ -1,8 +1,9 @@
 package commands;
 
-import picocli.CommandLine;
-import picocli.CommandLine.Parameters;
+
 import picocli.CommandLine.Command;
+import utils.Constants;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,15 +13,14 @@ import java.nio.file.Path;
         description = "initializing the repo"
 )
 public class Init implements Runnable{
-    private static final String GitMetaDataDir = ".GIT";
-    private static final String GitMetaDataContent = "objects|refs";
+
     private static void createGitFolder(String path){
         File file = new File(path);
         if(!file.mkdir())
             throw new RuntimeException("cannot create .GIT folder");
 
 
-        String[] git_sub_folders = GitMetaDataContent.split("\\|", 0);
+        String[] git_sub_folders = Constants.GitMetaDataContent.split("\\|", 0);
 
         for(String folder : git_sub_folders){
             if(!new File(path + "/" + folder).mkdir())
@@ -29,7 +29,7 @@ public class Init implements Runnable{
     }
     @Override
     public void run() {
-        String path = System.getProperty("user.dir") + "/" + GitMetaDataDir;
+        String path = System.getProperty("user.dir") + "/" + Constants.GitMetaDataDir;
         if(!Files.exists(Path.of(path)))
             createGitFolder(path);
         else

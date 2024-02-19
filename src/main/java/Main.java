@@ -13,9 +13,11 @@ public class Main {
         CommandsInitializer commands = new CommandsInitializer();
 
         String user_command = "";
-        while(!user_command.equals("exit")){
+        while(true){
 
             user_command = scan.nextLine();
+            if(user_command.equals("exit"))
+                break;
             String[] command_arr = user_command.split("\\s+");
 
             if(!command_arr[0].equals("git"))
